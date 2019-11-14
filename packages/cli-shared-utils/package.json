@@ -1,0 +1,15 @@
+{
+  "name": "cli-shared-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "maixiaojie",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "execa": "^3.3.0",
+    "semver": "^6.3.0",
+    "string.prototype.padstart": "^3.0.0"
+  }
+}
