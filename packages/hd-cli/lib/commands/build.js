@@ -4,9 +4,7 @@ module.exports = (api) => {
     usage: 'hd-cli build [options] [entry|pattern]',
   }, args => {
     const commandName = args._[0]
-    console.log(commandName)
     if (!commandName) {
-      loadMainHelp()
     } else {
 
     }
