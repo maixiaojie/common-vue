@@ -17,6 +17,7 @@ module.exports = class Service {
         let plugins
 
         const buildInPlugins = [
+            './commands/create',
             './commands/serve',
             './commands/build',
             './commands/inspect',
