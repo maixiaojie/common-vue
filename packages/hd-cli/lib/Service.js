@@ -20,6 +20,7 @@ module.exports = class Service {
             './commands/serve',
             './commands/build',
             './commands/inspect',
+            './commands/release',
             './commands/help'
         ].map(idToPlugin)
         // TODO: 如果有其他的，可以合并进来
@@ -48,6 +49,9 @@ module.exports = class Service {
         }
         if (!command || args.help || args.h) {
             command = this.commands.help
+        }else {
+            args._.shift()
+            rawArgv.shift()
         }
         const { fn } = command
         return fn(args, rawArgv)
