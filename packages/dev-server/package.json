@@ -5,7 +5,7 @@
   "main": "index.js",
   "typings": "types/index.d.ts",
   "bin": {
-    "hd-dev-server": "bin/service.js"
+    "hd-cli": "bin/service.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,5 +17,7 @@
     "node": ">=8"
   },
   "dependencies": {
+    "minimist": "^1.2.0",
+    "string.prototype.padend": "^3.0.0"
   }
 }
