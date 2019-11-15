@@ -7,7 +7,7 @@ module.exports = (api) => {
         if (!commandName) {
             loadMainHelp()
         } else {
-
+            loadHelpForCommand(commandName, api.service.commands[commandName])
         }
     })
 
@@ -31,5 +31,18 @@ module.exports = (api) => {
         console.log(`   \n run ${
             chalk.green(`hd-cli help [command]`)
         } for usage of a specific command. \n`)
+    }
+
+    function loadHelpForCommand(name, command) {
+        if(!command) {
+            console.log(chalk.red(`\n command "${name}" does not exist.`))
+        }else {
+            const opts = command.opts || {}
+            if(opts.usage) {
+                console.log(`\n Usage: ${opts.usage}`)
+            }
+
+            console.log(`\n`)
+        }
     }
 }
