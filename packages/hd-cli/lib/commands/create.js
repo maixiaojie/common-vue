@@ -1,17 +1,30 @@
-const download = require('download-git-repo')
 const shell = require('shelljs')
 const exists = require('fs').existsSync
-const { chalk } = require('../../../cli-shared-utils')
+const { chalk, error } = require('../../../cli-shared-utils')
 
 module.exports = (api) => {
     api.registerCommand('create', {
         description: 'create project from template',
         usage: 'hd-cli create <project-name> [options]',
     }, async args => {
-        const cwd = api.service.context
-        const name = 'testttt'
-        console.log(cwd)
-        await downloadTemplate(`git@git.hundun.cn:web/base/h5-template.git`, cwd, name)
+        console.log(args)
+        let projectName = args._[0];
+        console.log(projectName)
+        if(projectName) {
+            try {
+                const cwd = api.service.context
+                await downloadTemplate(`git@git.hundun.cn:web/base/h5-template.git`, cwd, projectName)
+            }catch(e) {
+                error(e, 'download')
+            }
+            
+        }else {
+            error(`project-name is necessary😝
+            try "hd-cli help create" to get helps.
+            `, 'cli')
+        }
+        
+        
     })
 }
 
@@ -21,7 +34,7 @@ const downloadTemplate = (repo, pwd, name) => {
     }
 
     return new Promise((resolve, reject) => {
-        // shell.cd(pwd)
+        shell.cd(pwd)
         shell.exec(`git clone --depth=1 ${repo} ${name}`, { silent: true }, (code, stdout, stderr) => {
             if (code === 0) {
                 console.log(chalk.green('download template successfuly'))
