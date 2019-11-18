@@ -14,4 +14,12 @@ const format = (label, msg) => {
 const error = (msg, tag = null) => {
     console.error(format(chalk.bgRed(' ERROR ') + (tag ? chalkTag(tag) : ''), chalk.red(msg)))
 }
+const info = (msg, tag = null) => {
+    console.log(format(chalk.bgBlue.black(' INFO ') + (tag ? chalkTag(tag) : ''), chalk.green(msg)))
+}
+const warn = (msg, tag = null) => {
+    console.warn(format(chalk.bgYellow.black(' WARN ') + (tag ? chalkTag(tag) : ''), chalk.yellow(msg)))
+}
+
 exports.error = error
+exports.info = info
