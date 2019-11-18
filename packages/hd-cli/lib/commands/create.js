@@ -1,6 +1,8 @@
 const shell = require('shelljs')
 const exists = require('fs').existsSync
-const { chalk, error, info } = require('../../../cli-shared-utils')
+const { logWithSpinner, stopSpinner, chalk, error, info } = require('../../../cli-shared-utils')
+
+const repoUrl = 'git@git.hundun.cn:web/base/h5-template.git';
 
 module.exports = (api) => {
     api.registerCommand('create', {
@@ -8,23 +10,23 @@ module.exports = (api) => {
         usage: 'hd-cli create <project-name> [options]',
     }, async args => {
         let projectName = args._[0];
-        if(projectName) {
+        if (projectName) {
             try {
                 const cwd = api.service.context
-                await downloadTemplate(`git@git.hundun.cn:web/base/h5-template.git`, cwd, projectName)
+                logWithSpinner('downloading template...')
+                await downloadTemplate(`${repoUrl}`, cwd, projectName)
+                stopSpinner('download template successful.')
                 info(`init project ${projectName} successful.`)
-                console.log(`add next, you can \ncd ${projectName}\nyarn install \nyarn run dev`)
-            }catch(e) {
+                console.log(`add next, you can: \n${chalk.cyan(`cd ${projectName}`)}\n${chalk.cyan('yarn install')} \n${chalk.cyan('yarn run dev')}`)
+            } catch (e) {
                 error(e, 'download')
             }
-            
-        }else {
-            error(`project-name is necessary😝
-            try "hd-cli help create" to get helps.
-            `, 'cli')
+        } else {
+            error(`project-name is necessary😝`, 'validation')
+            info(`try to tpye "hd-cli help create" for helps.`)
         }
-        
-        
+
+
     })
 }
 
